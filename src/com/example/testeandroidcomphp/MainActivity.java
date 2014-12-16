@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
+	EditText edtNome, edtSobrenome, edtEmail;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,11 +35,12 @@ public class MainActivity extends ActionBarActivity {
 		
 		new Thread(){
 			public void run() {
-				EditText edtNome = (EditText)findViewById(R.id.edtNome);
-				EditText edtSobrenome = (EditText)findViewById(R.id.edtSobrenome);
-				EditText edtEmail = (EditText)findViewById(R.id.edtEmail);
+				edtNome = (EditText)findViewById(R.id.edtNome);
+				edtSobrenome = (EditText)findViewById(R.id.edtSobrenome);
+				edtEmail = (EditText)findViewById(R.id.edtEmail);
 				
 				postHttp(edtNome.getText().toString(), edtSobrenome.getText().toString(), edtEmail.getText().toString());
+								
 			}
 		}.start();
 		
@@ -66,6 +68,10 @@ public class MainActivity extends ActionBarActivity {
 				public void run() {
 					try {
 						Toast.makeText(getBaseContext(), EntityUtils.toString(response.getEntity()), Toast.LENGTH_SHORT).show();
+						edtNome.setText("");
+						edtSobrenome.setText("");
+						edtEmail.setText("");
+						
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
